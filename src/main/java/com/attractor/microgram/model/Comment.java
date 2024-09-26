@@ -22,8 +22,7 @@ public class Comment {
     @Column(name = "commentator_id")
     private Long commentatorId;
 
-    @ManyToOne
     @JoinColumn(name = "publication_id", insertable = false, updatable = false)
-    private Publication publication;
+    private Long publicationId;
 
 }

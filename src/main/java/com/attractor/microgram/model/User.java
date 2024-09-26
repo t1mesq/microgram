@@ -43,6 +43,9 @@ public class User {
     @Column(name = "bio")
     private String bio;
 
+    @Column(name = "enabled")
+    private boolean enabled;
+
     @ManyToOne
     @PrimaryKeyJoinColumn
     private Authority authority;
