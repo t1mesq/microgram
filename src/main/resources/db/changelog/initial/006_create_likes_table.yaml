@@ -1,0 +1,33 @@
+databaseChangeLog:
+  - changeSet:
+      id: create likes table
+      author: Adil
+      changes:
+        - createTable:
+            tableName: likes
+            columns:
+              - column:
+                  name: id
+                  type: long
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: liker_id
+                  type: long
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_liker_id
+                    references: users(id)
+                    deleteCascade: true
+              - column:
+                  name: publication_id
+                  type: long
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_publication_id_
+                    references: publications(id)
+                    deleteCascade: true
+
+

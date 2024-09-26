@@ -1,0 +1,36 @@
+databaseChangeLog:
+  - changeSet:
+      id: create comments table
+      author: Adil
+      changes:
+        - createTable:
+            tableName: comments
+            columns:
+              - column:
+                  name: id
+                  type: long
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: text
+                  type: varchar(3000)
+              - column:
+                  name: commentator_id
+                  type: long
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_commentator_id
+                    references: users(id)
+                    deleteCascade: true
+              - column:
+                  name: publication_id
+                  type: long
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_publication_id
+                    references: publications(id)
+                    deleteCascade: true
+
+

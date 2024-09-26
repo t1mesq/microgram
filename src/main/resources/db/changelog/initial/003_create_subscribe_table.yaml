@@ -1,0 +1,29 @@
+databaseChangeLog:
+  - changeSet:
+      id: create subscribe table
+      author: Adil
+      changes:
+        - createTable:
+            tableName: subscriptions
+            columns:
+              - column:
+                  name: id
+                  type: long
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: subscriber_id
+                  type: long
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_subscriber_id
+                    references: users(id)
+              - column:
+                  name: user_id
+                  type: long
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_user_id
+                    references: users(id)
