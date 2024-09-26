@@ -16,10 +16,12 @@ public class Subscribe {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
     @JoinColumn(name = "subscriber_id", insertable = false, updatable = false)
-    private User subscriber;
+    private Long subscriberId;
 
     @Column(name = "user_id")
     private Long userId;
+
+    private String subscriberNickName;
+    private String userNickName;
 }
