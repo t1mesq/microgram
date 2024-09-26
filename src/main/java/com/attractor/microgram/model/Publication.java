@@ -18,8 +18,9 @@ public class Publication {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "author_id")
-    private Long authorId;
+    @ManyToOne
+    @JoinColumn(name = "author_id", insertable = false, updatable = false)
+    private User author;
 
     @Column(name = "image")
     private String image;
