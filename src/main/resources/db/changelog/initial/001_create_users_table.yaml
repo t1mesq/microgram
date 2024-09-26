@@ -52,16 +52,3 @@ databaseChangeLog:
               - column:
                   name: bio
                   type: varchar(1500)
-              - column:
-                  name: enabled
-                  type: boolean
-                  defaultValue: true
-                  constraints:
-                    nullable: false
-              - column:
-                  name: authority_id
-                  type: long
-                  constraints:
-                    nullable: false
-                    foreignKeyName: fk_authority_users_id
-                    references: authorities(id)

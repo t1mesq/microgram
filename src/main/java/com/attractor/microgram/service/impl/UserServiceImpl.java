@@ -32,6 +32,7 @@ public class UserServiceImpl implements UserService {
     private final String dirForFile = "images";
     private final PasswordEncoder encoder;
     private final AuthorityRepository authorityRepository;
+    private final String CLIENT_AUTHORITY = "client";
 
     @Override
     public List<UserDto> getUsers() {
@@ -135,6 +136,8 @@ public class UserServiceImpl implements UserService {
                     newAuthority.setRole("client");
                     return authorityRepository.save(newAuthority);
                 });
+        System.out.println(authority.getRole());
+        System.out.println(authority.getId());
 
         user.setAuthority(authority);
 

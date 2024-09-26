@@ -47,6 +47,6 @@ public class User {
     private boolean enabled;
 
     @ManyToOne
-    @PrimaryKeyJoinColumn
+    @JoinColumn(name = "authority_id", referencedColumnName = "id")
     private Authority authority;
 }

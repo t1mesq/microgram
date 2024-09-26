@@ -1,0 +1,22 @@
+databaseChangeLog:
+  - changeSet:
+      id: update table users
+      author: Adil
+      changes:
+        - addColumn:
+            tableName: users
+            columns:
+              - column:
+                  name: enabled
+                  type: boolean
+                  defaultValue: true
+                  constraints:
+                    nullable: false
+              - column:
+                  name: authority_id
+                  type: long
+                  constraints:
+                    foreignKeyName: fk_role_id
+                    nullable: true
+                    references: authorities(id)
+

@@ -1,6 +1,6 @@
 databaseChangeLog:
   - changeSet:
-      id: create authorities table
+      id: create authorities and role tables
       author: Adil
       changes:
         - createTable:
@@ -16,4 +16,3 @@ databaseChangeLog:
               - column:
                   name: authority
                   type: varchar(50)
-

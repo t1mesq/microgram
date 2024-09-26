@@ -1,0 +1,14 @@
+databaseChangeLog:
+  - changeSet:
+      id: update table publications
+      author: Adil
+      changes:
+        - addColumn:
+            tableName: publications
+            columns:
+              - column:
+                  name: like_count
+                  type: int
+                  defaultValue: 0
+
+
