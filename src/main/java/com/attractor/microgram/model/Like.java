@@ -19,6 +19,8 @@ public class Like {
     @Column(name = "liker_id")
     private Long likerId;
 
-    @Column(name = "publication_id")
-    private Long publicationId;
+    @ManyToOne
+    @JoinColumn(name = "publication_id", insertable = false, updatable = false)
+    private Publication publication;
+
 }
