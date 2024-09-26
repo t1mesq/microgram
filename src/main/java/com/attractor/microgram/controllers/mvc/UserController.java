@@ -1,7 +1,7 @@
 package com.attractor.microgram.controllers.mvc;
 
-import com.project.microgram.dto.UserInsertDto;
-import com.project.microgram.service.UserService;
+import com.attractor.microgram.dto.UserInsertDto;
+import com.attractor.microgram.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

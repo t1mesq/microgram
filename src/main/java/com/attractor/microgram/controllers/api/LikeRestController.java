@@ -1,5 +1,6 @@
 package com.attractor.microgram.controllers.api;
 
+import com.attractor.microgram.dto.LikeDto;
 import com.attractor.microgram.service.LikeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

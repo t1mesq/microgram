@@ -1,9 +1,9 @@
 package com.attractor.microgram.controllers.mvc;
 
-import com.project.microgram.dto.UserDto;
-import com.project.microgram.dto.UserInsertDto;
-import com.project.microgram.service.PublicationService;
-import com.project.microgram.service.UserService;
+import com.attractor.microgram.dto.UserDto;
+import com.attractor.microgram.dto.UserInsertDto;
+import com.attractor.microgram.service.PublicationService;
+import com.attractor.microgram.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
