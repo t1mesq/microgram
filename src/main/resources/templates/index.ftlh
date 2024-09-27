@@ -25,7 +25,6 @@
 
     <div class="container">
 
-
         <div class="row row-cols-3 mt-5 mb-4 pt-5" id="form-publication">
 
 
@@ -74,8 +73,8 @@
             </div>
         </div>
     </div>
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-
+    <link href="/css/flexbox.css" rel="stylesheet"> <!-- Подключение flexbox.css -->
+    <link rel="stylesheet" href="/css/publication-style.css">
     <script src="/js/authorizationHelper.js"></script>
     <script src="/js/index.js"></script>
     <script src="/js/workWithPost.js"></script>

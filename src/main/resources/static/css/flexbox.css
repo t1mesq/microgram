@@ -1,0 +1,25 @@
+.flex-container {
+    display: flex;
+    align-items: center; /* Центрирование по вертикали */
+    justify-content: space-between; /* Распределение пространства между элементами */
+    margin: 10px 0; /* Отступы между контейнерами */
+}
+
+.flex-item {
+    margin: 0 10px; /* Отступы между элементами */
+    display: flex;
+    align-items: center; /* Центрирование содержимого по вертикали */
+}
+
+.flex-item img {
+    height: 150px; /* Установите фиксированную высоту для изображений */
+    width: auto; /* Автоматическая ширина для сохранения пропорций */
+}
+
+.text-container {
+    height: 150px; /* Установите фиксированную высоту для текстового контейнера */
+    display: flex;
+    align-items: center; /* Центрирование текста по вертикали */
+    justify-content: center; /* Центрирование текста по горизонтали */
+    text-align: center; /* Центрирование текста */
+}
