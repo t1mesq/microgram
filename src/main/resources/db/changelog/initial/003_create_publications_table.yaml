@@ -30,3 +30,9 @@ databaseChangeLog:
               - column:
                   name: time_of_publication
                   type: timestamp
+              - column:
+                  name: like_count
+                  type: int
+                  defaultValue: 0
+
+

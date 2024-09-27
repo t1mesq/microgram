@@ -18,13 +18,13 @@
                 </#if>
                 <div class="form-group relative">
                     <div data-mdb-input-init class="form-outline mb-4">
-                        <input type="email" id="form3Example3" class="form-control input-lg" name="username" placeholder="Email"/>
+                        <input type="email" id="form3Example3" class="form-control input-lg" name="username" placeholder="Email"required/>
                         <i class="fa fa-user"></i>
                     </div>
                 </div>
                 <div class="form-group relative password">
                     <div data-mdb-input-init class="form-outline mb-4">
-                        <input type="password" id="form3Example4" class="form-control input-lg" name="password" placeholder="Пароль"/>
+                        <input type="password" id="form3Example4" class="form-control input-lg" name="password" placeholder="Пароль"required/>
                         <i class="fa fa-lock"></i>
                     </div>
                 </div>

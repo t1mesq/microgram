@@ -22,63 +22,63 @@
                 <div class="form-group relative">
                     <div data-mdb-input-init class="form-outline mb-4">
                         <input type="email" id="form3Example3" class="form-control input-lg" name="email"
-                               placeholder="Email" />
+                               placeholder="Email"required/>
                         <i class="fa fa-user"></i>
                     </div>
                 </div>
                 <div class="form-group relative">
                     <div data-mdb-input-init class="form-outline mb-4">
                         <input type="text" id="nickName" class="form-control input-lg" name="nickName"
-                               placeholder="Ник" />
+                               placeholder="Ник"required/>
                         <i class="fa fa-user"></i>
                     </div>
                 </div>
                 <div class="form-group relative">
                     <div data-mdb-input-init class="form-outline mb-4">
                         <input type="text" id="name" class="form-control input-lg" name="name"
-                               placeholder="Имя" />
+                               placeholder="Имя"required/>
                         <i class="fa fa-user"></i>
                     </div>
                 </div>
                 <div class="form-group relative">
                     <div data-mdb-input-init class="form-outline mb-4">
                         <input type="text" id="surname" class="form-control input-lg" name="surname"
-                               placeholder="Фамилия" />
+                               placeholder="Фамилия"required/>
                         <i class="fa fa-user"></i>
                     </div>
                 </div>
                 <div class="form-group relative">
                     <div data-mdb-input-init class="form-outline mb-4">
                         <input type="text" id="bio" class="form-control input-lg" name="bio"
-                               placeholder="О себе" />
+                               placeholder="О себе"required/>
                         <i class="fa fa-info-circle"></i>
                     </div>
                 </div>
                 <div class="form-group relative">
                     <div data-mdb-input-init class="form-outline mb-4">
                         <input type="text" id="age" class="form-control input-lg" name="age"
-                               placeholder="Возраст" />
+                               placeholder="Возраст"required/>
                         <i class="fa fa-birthday-cake"></i>
                     </div>
                 </div>
                 <div class="form-group relative">
                     <div data-mdb-input-init class="form-outline mb-4">
                         <input type="text" id="phoneNumber" class="form-control input-lg" name="phoneNumber"
-                               placeholder="Телефон" />
+                               placeholder="Телефон"required/>
                         <i class="fa fa-phone"></i>
                     </div>
                 </div>
                 <div class="form-group relative password">
                     <div data-mdb-input-init class="form-outline mb-4">
                         <input type="password" id="password" class="form-control input-lg" name="password"
-                               placeholder="Пароль" />
+                               placeholder="Пароль"required/>
                         <i class="fa fa-lock"></i>
                     </div>
                 </div>
                 <div class="form-group relative password">
                     <div data-mdb-input-init class="form-outline mb-4">
                         <input type="password" id="confirmationPassword" class="form-control input-lg"
-                               name="confirmationPassword" placeholder="Подтверждение пароля" />
+                               name="confirmationPassword" placeholder="Подтверждение пароля"required/>
                         <i class="fa fa-lock"></i>
                     </div>
                 </div>

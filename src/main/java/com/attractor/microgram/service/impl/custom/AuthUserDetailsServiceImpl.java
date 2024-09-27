@@ -15,14 +15,15 @@ import java.util.List;
 
 @Component
 @RequiredArgsConstructor
-
 public class AuthUserDetailsServiceImpl implements UserDetailsService {
     private final UserRepository userRepository;
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         User user = userRepository.findByEmail(email).stream()
-                .findFirst().orElseThrow();
+                .findFirst()
+                .orElseThrow(() -> new UsernameNotFoundException("Пользователь с email " + email + " не найден"));
+
         return new org.springframework.security.core.userdetails.User(
                 user.getEmail(),
                 user.getPassword(),
@@ -30,13 +31,11 @@ public class AuthUserDetailsServiceImpl implements UserDetailsService {
                 true,
                 true,
                 true,
-                getAuthorities(email)
+                getAuthorities(user)
         );
     }
 
-    public Collection<? extends GrantedAuthority> getAuthorities(String email) {
-        User user = userRepository.findByEmail(email).stream().findFirst()
-                .orElseThrow(() -> new UsernameNotFoundException("user with email " + email + "not found"));
+    private Collection<? extends GrantedAuthority> getAuthorities(User user) {
         return List.of(new SimpleGrantedAuthority(user.getAuthority().getRole()));
     }
 }

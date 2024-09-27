@@ -2,7 +2,6 @@ package com.attractor.microgram.controllers.mvc;
 
 import com.attractor.microgram.dto.SubscribeDto;
 import com.attractor.microgram.dto.UserDto;
-import com.attractor.microgram.model.Subscribe;
 import com.attractor.microgram.service.SubscribeService;
 import com.attractor.microgram.service.UserService;
 import lombok.RequiredArgsConstructor;

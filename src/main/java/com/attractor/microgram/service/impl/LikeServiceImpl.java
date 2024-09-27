@@ -41,7 +41,7 @@ public class LikeServiceImpl implements LikeService {
         like.setLikerId(user.getId());
 
         likeRepository.save(like);
-        publicationRepository.addLike(data.getPublicationId()); // Обновляем счетчик лайков
+        publicationRepository.addLike(data.getPublicationId());
     }
     @Transactional
     @Override
@@ -51,7 +51,7 @@ public class LikeServiceImpl implements LikeService {
                 .orElseThrow(() -> new CustomException("Лайк не найден"));
 
         likeRepository.delete(like);
-        publicationRepository.deleteLike(likeDto.getPublicationId()); // Обновляем счетчик лайков
+        publicationRepository.deleteLike(likeDto.getPublicationId());
     }
 
     @Override

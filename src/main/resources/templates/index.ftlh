@@ -7,8 +7,8 @@
 
     <div class="jumbotron jumbotron-fluid position-relative overlay-bottom" style="margin-bottom: 90px;">
         <div class="container text-center my-5 py-5">
-            <h1 class="text-white display-4 mt-4 mb-4">Приветствуем!</h1>
-            <h1 class="text-white display-5 mb-5">Жизнь — это не только котики, но и лайки под ними.</h1>
+            <h3 class="text-white display-4 mt-4 mb-4">Добро пожаловать в Прототип Инстаграмма — Microgram!</h3>
+            <h3 class="text-white display-5 mb-5">Ищите друзей, подписывайтесь на интересных пользователей и ставьте лайки друг другу! Делитесь позитивом и создавайте свою уникальную ленту вместе!</h3>
             <div class="row justify-content-center">
                 <div class="col-md-6">
                     <form action="/search" method="get" class="search-form mt-5">
@@ -28,7 +28,6 @@
     </div>
 
     <div class="container">
-
         <div class="row row-cols-3 mt-5 mb-4 pt-5" id="form-publication">
 
 

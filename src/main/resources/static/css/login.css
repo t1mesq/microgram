@@ -158,14 +158,12 @@ select:-webkit-autofill {
     color: #FFF;
 }
 #particles-js {
-    /*   background: cornflowerblue; */
     width:100%;
     height:100%;
     position:absolute;
     z-index:-1;
 }
 
-/* Стили для поля загрузки фото */
 .file-upload {
     position: relative;
     overflow: hidden;
