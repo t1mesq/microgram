@@ -126,9 +126,11 @@ public class UserServiceImpl implements UserService {
         user.setPhoneNumber(data.getPhoneNumber());
         user.setNickName(data.getNickName());
 
-        if (data.getFile() != null) {
+        if (data.getFile() != null && !data.getFile().isEmpty()) {
             String fileName = fileUtil.saveUploadedFile(data.getFile(), dirForFile);
             user.setAvatar(fileName);
+        } else {
+            user.setAvatar(null);
         }
 
         Authority authority = authorityRepository.findByRole("client")

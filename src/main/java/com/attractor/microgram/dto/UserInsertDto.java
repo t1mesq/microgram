@@ -39,4 +39,5 @@ public class UserInsertDto {
     @NotBlank(message = "nickname не может быть пустым")
     private String nickName;
     private MultipartFile file;
+    private String avatar;
 }

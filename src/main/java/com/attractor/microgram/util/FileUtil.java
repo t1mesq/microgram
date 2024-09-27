@@ -4,6 +4,7 @@ import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.imageio.IIOException;
+import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
@@ -70,6 +72,20 @@ public class FileUtil {
                     .contentLength(res.contentLength()).contentType(mediaType).body(res);
         }catch (NoSuchFileException e){
             return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Image not found");
+        }
+    }
+
+    public ResponseEntity<InputStreamResource> getOutputFile(String fileName, String subDir) {
+        try {
+            Path path = Paths.get(UPLOAD_DIR + subDir + "/" + fileName);
+            InputStreamResource resource = new InputStreamResource(Files.newInputStream(path));
+            MediaType mediaType = MediaType.parseMediaType(Files.probeContentType(path));
+            return ResponseEntity.ok()
+                    .contentType(mediaType)
+                    .body(new InputStreamResource(resource.getInputStream()));
+        } catch (IOException e) {
+            log.error("No file found:", e);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
     }
 }
