@@ -12,6 +12,10 @@
             <div class="row justify-content-center">
                 <div class="col-md-6">
                     <form action="/search" method="get" class="search-form mt-5">
+                        <#if _csrf??>
+                            <input type="hidden" name="${(_csrf.parameterName)!'csrf-param-name'}"
+                                   value="${(_csrf.token)!'csrf-token'}"/>
+                        </#if>
                         <div class="input-group">
                             <input type="text" name="query" placeholder="Искать по имени, никнейму и email"
                                    class="form-control">
@@ -36,43 +40,39 @@
             <div class="modal-dialog modal-dialog-scrollable">
                 <div class="modal-content">
                     <div class="modal-header">
-
                         <div id="postDivModal"></div>
-                            <button id="countLikeDivModal" type="button" class="btn btn-primary likes ml-2"> <i class="bi bi-heart"></i></button>
-
-
-
+                        <button id="countLikeDivModal" type="button" class="btn btn-primary likes ml-2">
+                            <i class="bi bi-heart"></i>
+                        </button>
                         <button type="button" id="postCloseModal" class="close btn btn-primary" data-dismiss="modal"
                                 aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
-
-
-                        <div class="form-group">
-                            <img id="imagePost" class="card-img opacity-100"
-                                 style="width: 40%;" alt="image">
-                        </div>
-                        <div id="textDescription"></div>
-
-                        <div class="modal-footer">
-
-                            <div id="comment" class="col-12"></div>
-
-                        </div>
-                        <input type="hidden" id="post_id">
-
-
-                        <div class="form-group mt-4 d-flex justify-content-evenly">
-                            <a id="commentBtn" type="" class="btn btn-primary mt-3 mr-2">Комментарии</a>
-                            <div id="divLikeBtn"></div>
-                        </div>
+                        <form id="likeForm">
+                            <#if _csrf??>
+                                <input type="hidden" name="${(_csrf.parameterName)!'csrf-param-name'}"
+                                       value="${(_csrf.token)!'csrf-token'}"/>
+                            </#if>
+                            <div class="form-group">
+                                <img id="imagePost" class="card-img opacity-100" style="width: 40%;" alt="image">
+                            </div>
+                            <div id="textDescription"></div>
+                            <div class="modal-footer">
+                                <div id="comment" class="col-12"></div>
+                            </div>
+                            <input type="hidden" id="post_id">
+                            <div class="form-group mt-4 d-flex justify-content-evenly">
+                                <a id="commentBtn" class="btn btn-primary mt-3 mr-2">Комментарии</a>
+                                <div id="divLikeBtn"></div>
+                            </div>
+                        </form>
                     </div>
-
                 </div>
             </div>
         </div>
+
     </div>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 

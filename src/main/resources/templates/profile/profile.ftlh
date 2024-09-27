@@ -92,6 +92,10 @@
                 </div>
                 <div class="modal-body">
                     <form id="editProfileForm" action="/profile/edit" method="post" enctype="multipart/form-data">
+                        <#if _csrf??>
+                            <input type="hidden" name="${(_csrf.parameterName)!'csrf-param-name'}"
+                                   value="${(_csrf.token)!'csrf-token'}"/>
+                        </#if>
                         <div class="form-group">
                             <label for="nickName">Никнейм</label>
                             <input type="text" class="form-control" id="nickName" name="nickName" required>
@@ -140,6 +144,10 @@
                 </div>
                 <div class="modal-body">
                     <form id="createPostModal" action="publication/create" method="post" enctype="multipart/form-data">
+                        <#if _csrf??>
+                            <input type="hidden" name="${(_csrf.parameterName)!'csrf-param-name'}"
+                                   value="${(_csrf.token)!'csrf-token'}"/>
+                        </#if>
 
                         <div class="form-group">
                             <label for="image">Фото публикации</label>
@@ -225,6 +233,10 @@
                 </div>
                 <div class="modal-body">
                     <form id="createPostModal" action="publication/edit" method="post" enctype="multipart/form-data">
+                        <#if _csrf??>
+                            <input type="hidden" name="${(_csrf.parameterName)!'csrf-param-name'}"
+                                   value="${(_csrf.token)!'csrf-token'}"/>
+                        </#if>
 
                         <div class="form-group">
                             <label for="image">Фото публикации</label>

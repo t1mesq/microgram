@@ -1,108 +1,110 @@
-async function post_info(id, canUseLike){
-
-    let response = await fetch("/publications/"+id, createRequest())
-
+async function post_info(id, canUseLike) {
+    let response = await fetch("/publications/" + id, createRequest());
     $("#comment").html("");
 
+    if (!response.ok) {
+        console.error("Ошибка при получении публикации:", response.statusText);
+        return;
+    }
+
     let res = await response.json();
-    let image=document.getElementById('imagePost')
-    image.setAttribute("src", "/publications/download/"+id)
+    let image = document.getElementById('imagePost');
+    image.setAttribute("src", "/publications/download/" + id);
 
-    let textDescription=document.getElementById('textDescription')
-    textDescription.innerText=res.description;
-    document.getElementById('postDivModal').innerText=formatDate(new Date(res.timeOfPublication))
-        ;
+    let textDescription = document.getElementById('textDescription');
+    textDescription.innerText = res.description;
 
-    document.getElementById('countLikeDivModal').innerText="Likes: "+res.likeCount;
+    document.getElementById('postDivModal').innerText = formatDate(new Date(res.timeOfPublication));
+    document.getElementById('countLikeDivModal').innerText = "Likes: " + (res.likeCount ?? 0);
 
-
-    let post = document.getElementById('post_id')
+    let post = document.getElementById('post_id');
     post.value = id;
 
-    if(userAunt) {
+    if (userAunt) {
         let btnLike = document.getElementById("divLikeBtn");
-        if(btnLike) {
+        if (btnLike) {
             btnLike.innerHTML = "";
+
             if (canUseLike) {
-
-
                 if (res.like) {
-                    btnLike.innerHTML = '<button id="likeDeleteBtn" type="button" class="btn btn-primary mt-3">Like <i class="bi bi-heart-fill bg-washed-red"></i></button>\n';
+                    btnLike.innerHTML = '<button id="likeDeleteBtn" type="button" class="btn btn-primary mt-3">Unlike <i class="bi bi-heart-fill bg-washed-red"></i></button>';
                 } else {
-                    btnLike.innerHTML = '<button id="likeBtn" type="button" class="btn btn-primary mt-3">Like <i class="bi bi-heart"></i></button>\n';
-
+                    btnLike.innerHTML = '<button id="likeBtn" type="button" class="btn btn-primary mt-3">Like <i class="bi bi-heart"></i></button>';
                 }
+
+                $("#likeBtn").off('click').click(async function () {
+                    let like = {publicationId: post.value};
+                    let likeResponse = await fetch("/likes/createLike", createRequest("post", like));
+
+                    if (likeResponse.ok) {
+                        getPublications();
+                        post_info(post.value, true);
+                        myModal.hide();
+                    } else {
+                        console.error("Ошибка при лайке:", likeResponse.statusText);
+                    }
+                });
+
+                $("#likeDeleteBtn").off('click').click(async function () {
+                    let like = {publicationId: post.value};
+                    let unlikeResponse = await fetch("/likes/deleteLike", createRequest("post", like));
+
+                    if (unlikeResponse.ok) {
+                        getPublications();
+                        post_info(post.value, true);
+                        myModal.hide();
+                    } else {
+                        console.error("Ошибка при убирании лайка:", unlikeResponse.statusText);
+                    }
+                });
             }
         }
     }
 
     let myModal = new bootstrap.Modal(document.getElementById('postModal'));
-
-    $("#likeBtn").off('click').click( async function () {
-        let post = document.getElementById('post_id')
-        let like = {publicationId: post.value}
-        let response = await fetch("/likes/createLike", createRequest("post", like));
-        let res = await response;
-        getPublications();
-        post_info(post.value, true);
-    });
-
-    $("#likeDeleteBtn").off('click').click( async function () {
-        let post = document.getElementById('post_id')
-        let like = {publicationId: post.value}
-        let response = await fetch("/likes/deleteLike", createRequest("post", like));
-        let res = await response;
-        getPublications();
-        post_info(post.value, true);
-
-    });
-
     myModal.show();
 }
 
-
-$("#commentBtn").click( function() {
+$("#commentBtn").click(function () {
     loudComment();
 });
 
-
-
-async function loudComment(){
+async function loudComment() {
     let data = document.getElementById('comment')
-    data.innerHTML="";
+    data.innerHTML = "";
     $("#comment").html("");
     let post = document.getElementById('post_id')
 
-    let response = await fetch("/comments/"+post.value, createRequest());
+    let response = await fetch("/comments/" + post.value, createRequest());
     let res = await response.json();
-    let deleteCommentBtn ='';
+    let deleteCommentBtn = '';
     let messageDivSendComment = '';
 
 
-    for (let i = 0; i<res.length; i++){
+    for (let i = 0; i < res.length; i++) {
 
 
-        if(res[0].isAuthorPost) {
+        if (res[0].isAuthorPost) {
             deleteCommentBtn = '<button id="editPostBtn" style="height: fit-content;" onclick="deleteComment(' + res[i].id + ')" type="button" class="btn btn-primary mt-3">x</button>\n';
         }
         let newElement = document.createElement('p');
-        newElement.innerHTML ='<div class="d-flex justify-content-between">\n' +
-            '    <span><span class="fw-bold">'+res[i].commentator+'</span> '+res[i].text+'  </span>' +
-            deleteCommentBtn+
-            '    </div>' ;
+        newElement.innerHTML = '<div class="d-flex justify-content-between">\n' +
+            '    <span><span class="fw-bold">' + res[i].commentator + '</span> ' + res[i].text + '  </span>' +
+            deleteCommentBtn +
+            '    </div>';
         data.appendChild(newElement);
     }
 
-    if(res.length===0){
+    if (res.length === 0) {
         let newElement = document.createElement('p');
-        newElement.innerHTML ='<div class="d-flex justify-content-between">\n' +
+        newElement.innerHTML = '<div class="d-flex justify-content-between">\n' +
             '    <span>Нету комментариев</span>' +
 
-            '    </div>' ;
+            '    </div>';
         data.appendChild(newElement);
     }
 
-    if(userAunt) {
+    if (userAunt) {
 
 
         messageDivSendComment = '<input type="text" id="messageCommentInput" class="form-control" placeholder="Добавить комментарий" aria-label="Добавить комментарий" aria-describedby="button-addon2">\n' +
@@ -112,23 +114,23 @@ async function loudComment(){
 
     let inputComment = document.createElement('div');
     inputComment.setAttribute("class", "input-group col-12");
-    inputComment.innerHTML=messageDivSendComment;
+    inputComment.innerHTML = messageDivSendComment;
     data.appendChild(inputComment);
 
 
 }
 
-async function sendCommentMessage(idPost){
-    let messageInput=document.getElementById("messageCommentInput").value;
-    let message={text: messageInput,publicationId:idPost}
+async function sendCommentMessage(idPost) {
+    let messageInput = document.getElementById("messageCommentInput").value;
+    let message = {text: messageInput, publicationId: idPost}
     let response = await fetch("/comments/sendCommentMessage", createRequest("post", message));
     let res = await response;
     loudComment();
 }
 
-async function deleteComment(id){
+async function deleteComment(id) {
     let post = document.getElementById('post_id')
-    let response = await fetch("/comments/deleteComment/"+post.value+"/"+id, createRequest());
+    let response = await fetch("/comments/deleteComment/" + post.value + "/" + id, createRequest());
     let res = await response;
 
     loudComment();

@@ -12,6 +12,10 @@
             <div class="welcome"><strong>Добро пожаловать,</strong> пожалуйста пройдите авторизацию.</div>
 
             <form  id="login-form" action="/auth/login" method="post" class="form-horizontal login-form">
+                <#if _csrf??>
+                    <input type="hidden" name="${(_csrf.parameterName)!'csrf-param-name'}"
+                           value="${(_csrf.token)!'csrf-token'}"/>
+                </#if>
                 <div class="form-group relative">
                     <div data-mdb-input-init class="form-outline mb-4">
                         <input type="email" id="form3Example3" class="form-control input-lg" name="username" placeholder="Email"/>

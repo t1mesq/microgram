@@ -12,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
@@ -24,30 +25,15 @@ public class LikeServiceImpl implements LikeService {
     private final PublicationRepository publicationRepository;
     private final LikeRepository likeRepository;
 
-    @Override
-    public void deleteLike(LikeDto likeDto, Authentication authentication) {
-        UserDto user = userService.getUserByAuth(authentication);
-        Like like = likeRepository.findByLikerIdAndPublicationId(user.getId(), likeDto.getPublicationId())
-                .orElseThrow(() -> new CustomException("Лайк не найден"));
-
-        likeRepository.delete(like);
-
-        Integer currentLike = publicationRepository.getCurrentLike(likeDto.getPublicationId());
-
-        if (currentLike > 0) {
-            publicationRepository.deleteLike(likeDto.getPublicationId());
-        }
-    }
-
+    @Transactional
     @Override
     public void createLike(LikeDto data, Authentication authentication) {
         UserDto user = userService.getUserByAuth(authentication);
-
         Optional<Like> likeOptional = likeRepository.findByLikerIdAndPublicationId(user.getId(), data.getPublicationId());
+
         if (likeOptional.isPresent()) {
-            String message = "Уже лайкнули этот пост";
-            log.error(message);
-            return;
+            log.error("Пользователь уже лайкнул пост с ID: {}", data.getPublicationId());
+            throw new CustomException("Уже лайкнули этот пост");
         }
 
         Like like = new Like();
@@ -55,8 +41,17 @@ public class LikeServiceImpl implements LikeService {
         like.setLikerId(user.getId());
 
         likeRepository.save(like);
+        publicationRepository.addLike(data.getPublicationId()); // Обновляем счетчик лайков
+    }
+    @Transactional
+    @Override
+    public void deleteLike(LikeDto likeDto, Authentication authentication) {
+        UserDto user = userService.getUserByAuth(authentication);
+        Like like = likeRepository.findByLikerIdAndPublicationId(user.getId(), likeDto.getPublicationId())
+                .orElseThrow(() -> new CustomException("Лайк не найден"));
 
-        publicationRepository.addLike(data.getPublicationId());
+        likeRepository.delete(like);
+        publicationRepository.deleteLike(likeDto.getPublicationId()); // Обновляем счетчик лайков
     }
 
     @Override

@@ -31,11 +31,19 @@
 
         <#if isSubscribed?? && isSubscribed>
             <form action="/unsubscribe" method="post" class="subscribe-form">
+                <#if _csrf??>
+                    <input type="hidden" name="${(_csrf.parameterName)!'csrf-param-name'}"
+                           value="${(_csrf.token)!'csrf-token'}"/>
+                </#if>
                 <input type="hidden" name="userId" value="${user.id}">
                 <button type="submit" class="btn btn-primary">Отписаться</button>
             </form>
         <#elseif isSubscribed??>
             <form action="/subscribe" method="post" class="subscribe-form">
+                <#if _csrf??>
+                    <input type="hidden" name="${(_csrf.parameterName)!'csrf-param-name'}"
+                           value="${(_csrf.token)!'csrf-token'}"/>
+                </#if>
                 <input type="hidden" name="userId" value="${user.id}">
                 <button type="submit" class="btn btn-primary">Подписаться</button>
             </form>

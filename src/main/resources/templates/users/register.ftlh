@@ -9,6 +9,10 @@
             <div class="welcome"><strong>Добро пожаловать,</strong> пожалуйста зарегистрируйтесь.</div>
             <form action="/user/register" method="post" enctype="multipart/form-data"
                   class="form-horizontal login-form">
+                <#if _csrf??>
+                    <input type="hidden" name="${(_csrf.parameterName)!'csrf-param-name'}"
+                           value="${(_csrf.token)!'csrf-token'}"/>
+                </#if>
                 <div class="form-group relative">
                     <div class="file-upload">
                         <span>Выберите файл</span>

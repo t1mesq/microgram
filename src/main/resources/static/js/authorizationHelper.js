@@ -15,16 +15,16 @@ function makeHeaders() {
 }
 
 
-function createRequest (method, body){
-    if(!method){
-        method = 'get'
-    }
-    let request={
+function createRequest(method = "GET", body = null) {
+    const csrfToken = document.querySelector('input[name="_csrf"]').value;
+    const headers = {
+        'Content-Type': 'application/json',
+        'X-CSRF-TOKEN': csrfToken
+    };
+
+    return {
         method: method,
-        headers: makeHeaders()
-    }
-    if(body){
-        request.body = JSON.stringify(body)
-    }
-    return request;
+        headers: headers,
+        body: body ? JSON.stringify(body) : null
+    };
 }
