@@ -22,25 +22,6 @@ import javax.sql.DataSource;
 @RequiredArgsConstructor
 public class SecurityConfig {
 
-    private final DataSource dataSource;
-    private static final String USER_QUERY = "select EMAIL, PASSWORD, ENABLED " +
-                                             "from USERS where EMAIL = ?;";
-    private static final String AUTHORITIES_QUERY = """
-            select u.email, r.role from users u, roles r
-            where r.id = u.role_id
-            and u.email = ?
-            ;
-            """;
-
-    @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder builder) throws Exception {
-        builder.jdbcAuthentication()
-                .dataSource(dataSource)
-                .usersByUsernameQuery(USER_QUERY)
-                .authoritiesByUsernameQuery(AUTHORITIES_QUERY)
-                .passwordEncoder(new BCryptPasswordEncoder());
-    }
-
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http

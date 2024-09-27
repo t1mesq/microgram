@@ -1,5 +1,6 @@
 package com.attractor.microgram.service.impl;
 
+import com.attractor.microgram.dto.SubscribeDto;
 import com.attractor.microgram.dto.UserDto;
 import com.attractor.microgram.model.Subscribe;
 import com.attractor.microgram.repository.SubscribeRepository;
@@ -10,6 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -44,28 +46,42 @@ public class SubscribeServiceImpl implements SubscribeService {
     }
 
     @Override
-    public List<Subscribe> getSubscriptionsByUserId(Long userId) {
+    public List<SubscribeDto> getSubscriptionsByUserId(Long userId) {
         List<Subscribe> subscriptions = subscribeRepository.findBySubscriberId(userId);
-        for (Subscribe subscription : subscriptions) {
-            UserDto user = userService.getUserById(subscription.getUserId());
-            subscription.setUserNickName(user.getNickName());
-        }
-        return subscriptions;
+
+        return subscriptions.stream()
+                .map(subscription -> {
+                    UserDto user = userService.getUserById(subscription.getUserId());
+                    return mapToDto(subscription, user.getNickName(), null);
+                })
+                .collect(Collectors.toList());
     }
 
     @Override
-    public List<Subscribe> getSubscribersByUserId(Long userId) {
+    public List<SubscribeDto> getSubscribersByUserId(Long userId) {
         List<Subscribe> subscribers = subscribeRepository.findByUserId(userId);
-        for (Subscribe subscriber : subscribers) {
-            UserDto user = userService.getUserById(subscriber.getSubscriberId());
-            subscriber.setSubscriberNickName(user.getNickName());
-        }
-        return subscribers;
+
+        return subscribers.stream()
+                .map(subscriber -> {
+                    UserDto user = userService.getUserById(subscriber.getSubscriberId());
+                    return mapToDto(subscriber, null, user.getNickName());
+                })
+                .collect(Collectors.toList());
     }
 
     @Override
     public boolean isSubscribed(Long subscriberId, Long userId) {
         return subscribeRepository.existsBySubscriberIdAndUserId(subscriberId, userId);
+    }
+
+    private SubscribeDto mapToDto(Subscribe subscribe, String userNickName, String subscriberNickName) {
+        return SubscribeDto.builder()
+                .id(subscribe.getId())
+                .subscriberId(subscribe.getSubscriberId())
+                .userId(subscribe.getUserId())
+                .userNickName(userNickName)
+                .subscriberNickName(subscriberNickName)
+                .build();
     }
 }
 

@@ -11,6 +11,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class SubscribeDto {
     private Long id;
-    private Long subscriber_id;
-    private Long user_id;
+    private Long subscriberId;
+    private Long userId;
+    private String subscriberNickName;
+    private String userNickName;
 }

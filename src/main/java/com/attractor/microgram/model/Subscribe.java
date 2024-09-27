@@ -21,7 +21,4 @@ public class Subscribe {
 
     @Column(name = "user_id")
     private Long userId;
-
-    private String subscriberNickName;
-    private String userNickName;
 }

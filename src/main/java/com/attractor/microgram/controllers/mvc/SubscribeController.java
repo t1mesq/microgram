@@ -1,5 +1,6 @@
 package com.attractor.microgram.controllers.mvc;
 
+import com.attractor.microgram.dto.SubscribeDto;
 import com.attractor.microgram.dto.UserDto;
 import com.attractor.microgram.model.Subscribe;
 import com.attractor.microgram.service.SubscribeService;
@@ -50,8 +51,8 @@ public class SubscribeController {
         UserDto currentUser = userService.getUserByAuth(authentication);
         Long userId = currentUser.getId();
 
-        List<Subscribe> subscriptions = subscribeService.getSubscriptionsByUserId(userId);
-        List<Subscribe> subscribers = subscribeService.getSubscribersByUserId(userId);
+        List<SubscribeDto> subscriptions = subscribeService.getSubscriptionsByUserId(userId);
+        List<SubscribeDto> subscribers = subscribeService.getSubscribersByUserId(userId);
 
         Map<String, Object> responseData = new HashMap<>();
         responseData.put("subscriptions", subscriptions);

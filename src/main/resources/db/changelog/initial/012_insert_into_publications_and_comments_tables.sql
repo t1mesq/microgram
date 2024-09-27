@@ -1,9 +1,9 @@
 insert into publications (AUTHOR_ID, IMAGE, DESCRIPTION, TIME_OF_PUBLICATION)
-values ((select id from USERS where NAME = 'John' and SURNAME = 'Doe'), '6ec7e660-c58d-420e-b593-72e8943e5153_23.jpg',
+values ((select id from USERS where NAME = 'John' and SURNAME = 'Doe'), 'photo1.jpg',
         'description of post', PARSEDATETIME('2024-04-26 12:00:00','yyyy-MM-dd HH:mm:ss')),
-       ((select id from USERS where NAME = 'Helen' and SURNAME = 'Li'), '6ec7e660-c58d-420e-b593-72e8943e5153_23.jpg',
+       ((select id from USERS where NAME = 'Helen' and SURNAME = 'Li'), 'photo2.jpg',
         'description of post', PARSEDATETIME('2024-04-26 12:10:00','yyyy-MM-dd HH:mm:ss')),
-       ((select id from USERS where NAME = 'John' and SURNAME = 'Doe'), '6ec7e660-c58d-420e-b593-72e8943e5153_23.jpg',
+       ((select id from USERS where NAME = 'John' and SURNAME = 'Doe'), 'photo3.jpg',
         'description of post', PARSEDATETIME('2024-04-26 12:20:00','yyyy-MM-dd HH:mm:ss'));
 
 

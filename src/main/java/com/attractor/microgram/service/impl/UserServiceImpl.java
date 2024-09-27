@@ -119,6 +119,7 @@ public class UserServiceImpl implements UserService {
         user.setName(data.getName());
         user.setSurname(data.getSurname());
         user.setBio(data.getBio());
+        user.setEnabled(true);
         user.setAge(data.getAge());
         user.setEmail(data.getEmail());
         user.setPassword(encoder.encode(data.getPassword()));
