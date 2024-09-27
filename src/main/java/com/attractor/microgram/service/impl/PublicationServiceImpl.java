@@ -5,6 +5,7 @@ import com.attractor.microgram.dto.PublicationDto;
 import com.attractor.microgram.dto.PublicationEditDto;
 import com.attractor.microgram.dto.UserDto;
 import com.attractor.microgram.exception.CustomException;
+import com.attractor.microgram.exception.FileUploadException;
 import com.attractor.microgram.model.Publication;
 import com.attractor.microgram.repository.PublicationRepository;
 import com.attractor.microgram.service.LikeService;
@@ -116,10 +117,23 @@ public class PublicationServiceImpl implements PublicationService {
         Publication publication = new Publication();
         publication.setAuthorId(userDto.getId());
         publication.setDescription(newData.getDescription());
+
+        List<String> allowedExtensions = List.of("jpg", "jpeg", "png", "gif");
+
         if (newData.getImage() != null) {
-            String fileName = fileUtil.saveUploadedFile(newData.getImage(), dirForFile);
-            publication.setImage(fileName);
+            String originalFilename = newData.getImage().getOriginalFilename();
+            if (originalFilename != null) {
+                String fileExtension = originalFilename.substring(originalFilename.lastIndexOf(".") + 1).toLowerCase();
+
+                if (!allowedExtensions.contains(fileExtension)) {
+                    throw new FileUploadException("Неверный тип файла. Пожалуйста, загрузите изображение формата: jpg, jpeg, png, gif.");
+                }
+
+                String fileName = fileUtil.saveUploadedFile(newData.getImage(), dirForFile);
+                publication.setImage(fileName);
+            }
         }
+
         publicationRepository.save(publication);
     }
 

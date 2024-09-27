@@ -143,7 +143,12 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form id="createPostModal" action="publication/create" method="post" enctype="multipart/form-data">
+                    <#if fileUploadError??>
+                        <div class="alert alert-danger" role="alert">
+                            ${fileUploadError}
+                        </div>
+                    </#if>
+                    <form id="createPostForm" action="publication/create" method="post" enctype="multipart/form-data">
                         <#if _csrf??>
                             <input type="hidden" name="${(_csrf.parameterName)!'csrf-param-name'}"
                                    value="${(_csrf.token)!'csrf-token'}"/>
@@ -152,13 +157,13 @@
                         <div class="form-group">
                             <label for="image">Фото публикации</label>
                             <div>
-                                <input type="file" class="form-control-file" id="image" name="image">
+                                <input type="file" class="form-control-file" id="image" name="image" required>
                             </div>
                         </div>
 
                         <div class="form-group mt-4">
                             <label for="description">Текст публикации</label>
-                            <textarea type="text" class="form-control" id="description" name="description"></textarea>
+                            <textarea type="text" class="form-control" id="description" name="description" required></textarea>
                         </div>
                         <button type="submit" class="btn btn-primary mt-3">Сохранить изменения</button>
                     </form>
@@ -166,9 +171,6 @@
             </div>
         </div>
     </div>
-
-
-
 
 </#if>
     <!-- Модальное окно публикации -->
@@ -178,7 +180,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <div id="postDivModal"></div>
-                    
+
                     <button id="countLikeDivModal" type="button" class="btn btn-primary likes ml-2"> <i class="bi bi-heart"></i></button>
 
                     <button type="button" id="postCloseModal" class="close btn btn-primary" data-dismiss="modal"
@@ -187,7 +189,6 @@
                     </button>
                 </div>
                 <div class="modal-body">
-
 
                     <div class="form-group">
                         <img id="imagePost" class="card-img opacity-100"

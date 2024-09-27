@@ -37,7 +37,8 @@ public class SecurityConfig {
                                 .requestMatchers(HttpMethod.GET, "/publications/deletePublication/").permitAll()
                                 .requestMatchers(HttpMethod.POST, "/comments/sendCommentMessage").permitAll()
                                 .requestMatchers(HttpMethod.GET, "/comments/deleteComment/").permitAll()
-                       .anyRequest().permitAll()
+                                .requestMatchers("/profile").authenticated()
+                        .anyRequest().permitAll()
                 );
         return http.build();
     }
